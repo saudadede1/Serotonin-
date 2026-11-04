@@ -5,5 +5,6 @@ off=open(src,encoding='utf8').read()
 head='<link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-180.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="YÖKDİL"><meta name="apple-mobile-web-app-status-bar-style" content="default">'
 off=off.replace('<title>',head+'<title>',1)
 reg='<script>if("serviceWorker" in navigator&&location.protocol.startsWith("http")){var hadC=!!navigator.serviceWorker.controller;navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(function(r){r.update()}).catch(function(){});navigator.serviceWorker.addEventListener("controllerchange",function(){if(hadC&&!window.__rl){window.__rl=1;location.reload()}})}try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}</script>'
-off=off.replace('</body></html>',reg+'\n</body></html>')
+i=off.rfind('</body></html>')
+if i>=0: off=off[:i]+reg+'\n'+off[i:]  # yalnızca gerçek son etikete ekle
 open(out,'w',encoding='utf8').write(off)

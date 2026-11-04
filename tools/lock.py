@@ -28,16 +28,22 @@ window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();win
 try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
 async function open_(raw){var key=await crypto.subtle.importKey("raw",raw,"AES-GCM",false,["decrypt"]);
  var ct=b2u(document.getElementById("d").textContent.trim());var pt=await crypto.subtle.decrypt({name:"AES-GCM",iv:b2u(I)},key,ct);
- var html=new TextDecoder().decode(pt);document.open();document.write(html);document.close()}
+ var html=new TextDecoder().decode(pt);mount(html)}
+/* Kilit sayfasını uygulamayla TAMAMEN değiştir (document.write kullanılmaz: bazı cihazlarda eski sayfa silinmeden altına ekleniyordu) */
+function mount(html){var doc=new DOMParser().parseFromString(html,"text/html");var root=document.adoptNode(doc.documentElement);
+ document.replaceChild(root,document.documentElement);
+ var ss=root.querySelectorAll("script");for(var i=0;i<ss.length;i++){var s=ss[i],t=(s.getAttribute("type")||"").toLowerCase();if(t&&t!=="text/javascript"&&t!=="module")continue;
+  var n=document.createElement("script");for(var j=0;j<s.attributes.length;j++)n.setAttribute(s.attributes[j].name,s.attributes[j].value);n.text=s.text;s.parentNode.replaceChild(n,s)}
+ if(document.getElementById("f")){var f=document.getElementById("f");f.parentNode&&f.parentNode.removeChild(f)}}
 async function derive(pw){var base=await crypto.subtle.importKey("raw",new TextEncoder().encode(pw),"PBKDF2",false,["deriveBits"]);
  return new Uint8Array(await crypto.subtle.deriveBits({name:"PBKDF2",salt:b2u(S),iterations:IT,hash:"SHA-256"},base,256))}
 var m=document.getElementById("m");document.getElementById("inst").onclick=function(){var e=window.__bip;if(e){e.prompt();e.userChoice.then(function(){window.__bip=null;document.getElementById("inst").hidden=true})}};
 if(!window.crypto||!crypto.subtle){m.textContent="Bu tarayıcı kilidi açamıyor. iPhone’da Safari, Android’de Chrome ile https adresinden aç."}
-(async function(){var s=null;try{s=localStorage.getItem(K)}catch(e){}if(s){try{await open_(b2u(s));return}catch(e){try{localStorage.removeItem(K)}catch(_){}}}})();
+(async function(){var s=null;try{s=localStorage.getItem(K)}catch(e){}if(s){var bx=document.querySelector(".box");if(bx)bx.style.visibility="hidden";try{await open_(b2u(s));return}catch(e){try{localStorage.removeItem(K)}catch(_){}if(bx)bx.style.visibility=""}}})();
 document.getElementById("f").onsubmit=async function(e){e.preventDefault();m.textContent="Açılıyor…";
  try{var raw=await derive(document.getElementById("pw").value.trim());
   if(document.getElementById("rm").checked){try{localStorage.setItem(K,btoa(String.fromCharCode.apply(null,raw)))}catch(_){}}
-  await open_(raw)}catch(err){m.textContent="Şifre yanlış. Tekrar dene."}};
+  m.textContent="Açılıyor…";document.getElementById("go").disabled=true;await open_(raw)}catch(err){document.getElementById("go").disabled=false;m.textContent="Şifre yanlış. Tekrar dene."}};
 })();</script></body></html>'''
 loader=loader.replace('__SALT__',b(salt)).replace('__IV__',b(iv)).replace('__IT__',str(IT)).replace('__CT__',b(ct))
 open(out,'w',encoding='utf8').write(loader);print('locked',len(loader)//1024,'KB')

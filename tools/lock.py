@@ -10,11 +10,11 @@ ct=AESGCM(key).encrypt(iv,html.encode('utf8'),None)
 b=lambda x:base64.b64encode(x).decode()
 loader='''<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow"><title>YÖKDİL Koçu</title>
-<link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-180.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="YÖKDİL"><meta name="theme-color" content="#0F6A5E">
+<link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-180.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="YÖKDİL"><meta name="theme-color" content="#4338CA">
 <style>body{margin:0;font:17px/1.5 -apple-system,system-ui,sans-serif;background:#F5F7F6;color:#13232B;display:grid;place-items:center;min-height:100vh}
 .box{box-sizing:border-box;width:min(360px,calc(100vw - 32px));background:#fff;border:1px solid #DCE4E2;border-radius:20px;padding:24px 20px;box-shadow:0 8px 30px rgba(0,0,0,.06)}
 h1{font-size:22px;margin:0 0 4px}p{margin:0 0 16px;color:#5D6E75;font-size:15px}input[type=password]{width:100%;box-sizing:border-box;font:inherit;padding:12px 14px;border:1.5px solid #DCE4E2;border-radius:12px}
-button{width:100%;margin-top:12px;font-family:inherit;font-weight:600;font-size:17px;padding:13px;border:0;border-radius:12px;background:#0F6A5E;color:#fff}label{display:flex;gap:8px;align-items:center;margin-top:12px;font-size:15px}#m{color:#C0412A;min-height:1.4em;margin:10px 0 0}
+button{width:100%;margin-top:12px;font-family:inherit;font-weight:600;font-size:17px;padding:13px;border:0;border-radius:12px;background:#4338CA;color:#fff}label{display:flex;gap:8px;align-items:center;margin-top:12px;font-size:15px}#m{color:#C0412A;min-height:1.4em;margin:10px 0 0}
 @media(prefers-color-scheme:dark){body{background:#0E1719;color:#E6EEF0}.box{background:#162225;border-color:#24363A}input[type=password]{background:#0E1719;color:#E6EEF0;border-color:#24363A}}</style></head>
 <body><form class="box" id="f" autocomplete="on"><h1>YÖKDİL Koçu</h1><p>Bu uygulama kilitli. Şifreni gir.</p>
 <input type="text" name="username" value="sero" autocomplete="username" hidden><input type="password" id="pw" autocomplete="current-password" placeholder="Şifre" required>

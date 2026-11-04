@@ -23,7 +23,7 @@ button{width:100%;margin-top:12px;font-family:inherit;font-weight:600;font-size:
 <script>
 (function(){var S="__SALT__",I="__IV__",IT=__IT__,K="yokdil_lock_key";
 function b2u(s){var b=atob(s),u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u}
-if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(function(){});
+if("serviceWorker" in navigator)var hadC=!!navigator.serviceWorker.controller;navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(function(r){r.update()}).catch(function(){});navigator.serviceWorker.addEventListener("controllerchange",function(){if(hadC&&!window.__rl){window.__rl=1;location.reload()}});
 try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
 async function open_(raw){var key=await crypto.subtle.importKey("raw",raw,"AES-GCM",false,["decrypt"]);
  var ct=b2u(document.getElementById("d").textContent.trim());var pt=await crypto.subtle.decrypt({name:"AES-GCM",iv:b2u(I)},key,ct);
